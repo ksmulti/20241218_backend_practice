@@ -37,6 +37,7 @@ app.get('/', (_req, res) => {
 });
 
 app.post('/api/diaries', DiaryController.createDiary);
+app.get('/api/diaries/:id', DiaryController.getDiary);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
