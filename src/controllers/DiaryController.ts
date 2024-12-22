@@ -46,7 +46,7 @@ export class DiaryController {
         const diaryRepository = AppDataSource.getRepository(Diary);
 
         try {
-            const diaries = await diaryRepository.find({ where: { user: req.user } });
+            const diaries = await diaryRepository.find({ where: { user: req.user }, order: { createdAt: "DESC" } });
 
             if (!diaries) {
                 res.status(404).json({ error: 'Diary not found' });
