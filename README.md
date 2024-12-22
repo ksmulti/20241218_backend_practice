@@ -1,5 +1,15 @@
 # 20241218_backend_test
 
+## 環境構築
+### 前提条件
+- nodeヴァージョン：v22.12.0
+- docker、docker composeがインストール済み
+
+## モジュールのインストール
+```
+npm install --include=dev
+```
+
 ## DBの設置
 ```
 docker compose up -d
@@ -21,3 +31,4 @@ curl --location 'http://127.0.0.1:3000/api/exercise-records' \
 ```
 curl --location 'http://127.0.0.1:3000/api/exercise-records?type=walking'
 ```
+

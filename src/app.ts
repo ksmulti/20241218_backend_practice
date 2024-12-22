@@ -6,6 +6,7 @@ import { DiaryController } from "@/controllers/DiaryController";
 import { authMiddleware } from '@/middleware/authMiddleware';
 import { BodyRecordController } from '@/controllers/BodyRecordController';
 import { ExerciseRecordController } from '@/controllers/ExerciseRecordController';
+import { ExerciseGoalController } from '@/controllers/ExerciseGoalController';
 
 declare module 'express-serve-static-core' {
     interface Request {
@@ -56,6 +57,8 @@ app.post('/api/body-records', authMiddleware, BodyRecordController.createBodyRec
 
 app.get('/api/exercise-records', authMiddleware, ExerciseRecordController.getExerciseRecords);
 app.post('/api/exercise-records', authMiddleware, ExerciseRecordController.createExerciseRecord);
+
+app.post('/api/exercise-goals', authMiddleware, ExerciseGoalController.createGoal);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

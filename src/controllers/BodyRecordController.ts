@@ -30,7 +30,6 @@ export class BodyRecordController {
             record.date = new Date(date);
             record.weight = weight;
             record.bodyFatPercentage = bodyFatPercentage;
-            console.dir(record);
 
             await healthRecordRepository.save(record);
             

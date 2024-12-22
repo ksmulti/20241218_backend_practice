@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "@/entity/User"
 import { ExerciseType } from "@/types/ExerciseType";
-  
-// 運動記録のエンティティ
+
+// 運動目標のエンティティ
 @Entity()
-export class ExerciseRecord {
+export class ExerciseGoal {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -14,13 +14,13 @@ export class ExerciseRecord {
     @Column({
         type: 'enum',
         enum: ExerciseType,
-        default: ExerciseType.OTHER
+        nullable: true
     })
     exerciseType!: ExerciseType;
 
     @Column('date', { unique: true })
-    date!: Date;
+    date!: Date; // 目標の日付
 
     @Column('integer')
-    duration!: number; // 分単位での運動時間
+    targetMinutes!: number; // 目標運動時間（分）
 }
