@@ -20,6 +20,12 @@ docker compose up -d
 npm run dev
 ```
 
+## ER図
+diagram.pngに参照
+
+## API仕様（swagger）
+redoc-static.htmlに参照
+
 ## 今後の課題
 - routingの改善（手動追加しないように）
 - unit testの追加（DBをmock）

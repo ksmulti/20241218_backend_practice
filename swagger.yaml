@@ -1,0 +1,359 @@
+openapi: 3.0.0
+info:
+  title: Backend Test API
+  version: 1.0.0
+  description: API documentation for the backend test project
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://your-production-url.com
+
+security:
+  - bearerAuth: []
+
+paths:
+  /api/exercise-records:
+    get:
+      summary: Get exercise records
+      operationId: getExerciseRecords
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExerciseRecord'
+        '400':
+          description: Bad request
+        '500':
+          description: Failed to fetch exercise records
+    post:
+      summary: Create an exercise record
+      operationId: createExerciseRecord
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseRecord'
+      responses:
+        '201':
+          description: Exercise record created
+        '400':
+          description: Invalid exercise record data
+
+  /api/exercise-goals:
+    post:
+      summary: Create an exercise goal
+      operationId: createExerciseGoal
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseGoal'
+      responses:
+        '201':
+          description: Exercise goal created
+        '400':
+          description: Invalid goal data
+
+  /api/exercise-completion:
+    get:
+      summary: Get exercise completion rates
+      operationId: getExerciseCompletionRates
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                    completionRate:
+                      type: number
+        '400':
+          description: Bad request
+        '500':
+          description: Failed to calculate completion rates
+
+  /api/body-records:
+    get:
+      summary: Get body records
+      operationId: getBodyRecords
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BodyRecord'
+        '400':
+          description: Bad request
+        '500':
+          description: Could not fetch health records
+    post:
+      summary: Create a body record
+      operationId: createBodyRecord
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyRecord'
+      responses:
+        '201':
+          description: Body record created
+        '400':
+          description: Invalid health record data
+
+  /api/diaries:
+    get:
+      summary: Get all diaries
+      operationId: getAllDiaries
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Diary'
+        '400':
+          description: Bad request
+        '500':
+          description: Failed to fetch diaries
+    post:
+      summary: Create a diary
+      operationId: createDiary
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Diary'
+      responses:
+        '201':
+          description: Diary created
+        '400':
+          description: Invalid diary data
+        '500':
+          description: Failed to create diary
+
+  /api/diaries/{id}:
+    get:
+      summary: Get a specific diary
+      operationId: getDiary
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diary'
+        '400':
+          description: Bad request
+        '404':
+          description: Diary not found
+        '500':
+          description: Failed to fetch diary
+    put:
+      summary: Update a specific diary
+      operationId: updateDiary
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Diary'
+      responses:
+        '200':
+          description: Diary updated
+        '400':
+          description: Invalid diary data
+        '404':
+          description: Diary not found
+        '500':
+          description: Failed to update diary
+    delete:
+      summary: Delete a specific diary
+      operationId: deleteDiary
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Diary deleted
+        '400':
+          description: Bad request
+        '404':
+          description: Diary not found
+        '500':
+          description: Failed to delete diary
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ExerciseRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/User'
+        date:
+          type: string
+          format: date
+        exerciseType:
+          type: string
+          enum:
+            - walking
+            - running
+            - training
+            - swimming
+            - other
+        duration:
+          type: integer
+
+    ExerciseGoal:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/User'
+        date:
+          type: string
+          format: date
+        exerciseType:
+          type: string
+          enum:
+            - walking
+            - running
+            - training
+            - swimming
+            - other
+        targetMinutes:
+          type: integer
+
+    BodyRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/User'
+        date:
+          type: string
+          format: date
+        weight:
+          type: number
+        bodyFatPercentage:
+          type: number
+
+    Diary:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/User'
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
