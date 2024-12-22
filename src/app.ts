@@ -60,6 +60,8 @@ app.post('/api/exercise-records', authMiddleware, ExerciseRecordController.creat
 
 app.post('/api/exercise-goals', authMiddleware, ExerciseGoalController.createGoal);
 
+app.get('/api/exercise-completion', authMiddleware, ExerciseGoalController.getCompletionRates);
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
