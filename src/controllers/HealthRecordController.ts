@@ -2,7 +2,9 @@ import { AppDataSource } from "@/data-source";
 import { HealthRecord } from "@/entity/HealthRecord";
 import { Request, Response } from "express";
 
+// 健康記録のコントローラー
 export class HealthRecordController {
+    // 健康記録の一覧取得
     static async getHealthRecords(req: Request, res: Response) {
         const healthRecordRepository = AppDataSource.getRepository(HealthRecord);
         try {
@@ -16,7 +18,8 @@ export class HealthRecordController {
             res.status(500).json({ error: 'Could not fetch health records' });
         }
     }
-  
+
+    // 健康記録の作成
     static async createHealthRecord(req: Request, res: Response) {
         const { date, weight, bodyFatPercentage } = req.body;
         const healthRecordRepository = AppDataSource.getRepository(HealthRecord);

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "@/entity/User"
 
+// 日記のエンティティ
 @Entity()
 export class Diary {
     @PrimaryGeneratedColumn()

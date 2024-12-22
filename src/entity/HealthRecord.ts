@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "@/entity/User";
 
+// 健康記録のエンティティ
 @Entity()
 export class HealthRecord {
     @PrimaryGeneratedColumn()
