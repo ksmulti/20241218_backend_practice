@@ -3,6 +3,13 @@ import "reflect-metadata";
 import { AppDataSource } from "./data-source";
 import { User } from "@/entity/User";
 import { DiaryController } from "@/controllers/DiaryController";
+import { authMiddleware } from './middleware/authMiddleware';
+
+declare module 'express-serve-static-core' {
+    interface Request {
+        user: User;
+    }
+}
 
 async function main() {
     try {
@@ -36,8 +43,8 @@ app.get('/', (_req, res) => {
     res.send('Hello World!');
 });
 
-app.post('/api/diaries', DiaryController.createDiary);
-app.get('/api/diaries/:id', DiaryController.getDiary);
+app.post('/api/diaries', authMiddleware, DiaryController.createDiary);
+app.get('/api/diaries/:id', authMiddleware, DiaryController.getDiary);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
