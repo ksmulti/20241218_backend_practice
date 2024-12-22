@@ -15,6 +15,11 @@ npm install --include=dev
 docker compose up -d
 ```
 
+## 開発環境の実行
+```
+npm run dev
+```
+
 ## 今後の課題
 - routingの改善（手動追加しないように）
 - unit testの追加（DBをmock）
