@@ -15,6 +15,14 @@ npm install --include=dev
 docker compose up -d
 ```
 
+## 今後の課題
+- routingの改善（手動追加しないように）
+- unit testの追加（DBをmock）
+- integration testの追加（DBを含める）
+- 画像の置く場所（s3など）、画像のパスを追加
+- 食事履歴の追加
+- コラムページの追加
+
 ## APIの使用例
 ### 運動記録の作成（POST /api/exercise-records）
 ```
