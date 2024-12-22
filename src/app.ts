@@ -45,6 +45,9 @@ app.get('/', (_req, res) => {
 
 app.post('/api/diaries', authMiddleware, DiaryController.createDiary);
 app.get('/api/diaries/:id', authMiddleware, DiaryController.getDiary);
+app.get('/api/diaries', authMiddleware, DiaryController.getDiaries);
+app.put('/api/diaries/:id', authMiddleware, DiaryController.updateDiary);
+app.delete('/api/diaries/:id', authMiddleware, DiaryController.deleteDiary);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
