@@ -26,8 +26,8 @@ export class ExerciseRecord {
     })
     exerciseType!: ExerciseType;
 
-    @Column('timestamp with time zone')
-    dateTime!: Date;
+    @Column('date', { unique: true })
+    date!: Date;
 
     @Column('integer')
     duration!: number; // 分単位での運動時間

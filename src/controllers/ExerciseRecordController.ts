@@ -14,9 +14,9 @@ export class ExerciseRecordController {
             
             // 日付範囲でフィルター
             if (startDate || endDate) {
-                whereClause.dateTime = {};
-                if (startDate) whereClause.dateTime = { ...whereClause.dateTime, gte: new Date(startDate as string) };
-                if (endDate) whereClause.dateTime = { ...whereClause.dateTime, lte: new Date(endDate as string) };
+                whereClause.date = {};
+                if (startDate) whereClause.date = { ...whereClause.date, gte: new Date(startDate as string) };
+                if (endDate) whereClause.date = { ...whereClause.date, lte: new Date(endDate as string) };
             }
             
             // 運動タイプでフィルター
@@ -26,7 +26,7 @@ export class ExerciseRecordController {
     
             const records = await exerciseRecordRepository.find({
                 where: whereClause,
-                order: { dateTime: 'DESC' }
+                order: { date: 'DESC' }
             });
     
             res.json(records);
@@ -37,14 +37,14 @@ export class ExerciseRecordController {
   
     // 運動記録の作成
     static async createExerciseRecord(req: Request, res: Response) {
-        const { exerciseType, dateTime, duration } = req.body;
+        const { exerciseType, date, duration } = req.body;
         const exerciseRecordRepository = AppDataSource.getRepository(ExerciseRecord);
   
         try {
             const record = new ExerciseRecord();
             record.user = req.user;
             record.exerciseType = exerciseType;
-            record.dateTime = new Date(dateTime);
+            record.date = new Date(date);
             record.duration = duration;
 
             await exerciseRecordRepository.save(record);
