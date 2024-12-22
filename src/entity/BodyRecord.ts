@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "@/entity/User";
 
-// 健康記録のエンティティ
+// ボディーレコードのエンティティ
 @Entity()
-export class HealthRecord {
+export class BodyRecord {
     @PrimaryGeneratedColumn()
     id!: number;
 

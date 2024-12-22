@@ -1,12 +1,12 @@
 import { AppDataSource } from "@/data-source";
-import { HealthRecord } from "@/entity/HealthRecord";
+import { BodyRecord } from "@/entity/BodyRecord";
 import { Request, Response } from "express";
 
-// 健康記録のコントローラー
-export class HealthRecordController {
-    // 健康記録の一覧取得
-    static async getHealthRecords(req: Request, res: Response) {
-        const healthRecordRepository = AppDataSource.getRepository(HealthRecord);
+// ボディーレコードのコントローラー
+export class BodyRecordController {
+    // ボディーレコードの一覧取得
+    static async getBodyRecords(req: Request, res: Response) {
+        const healthRecordRepository = AppDataSource.getRepository(BodyRecord);
         try {
             const records = await healthRecordRepository.find({
                 where: { user: req.user },
@@ -19,13 +19,13 @@ export class HealthRecordController {
         }
     }
 
-    // 健康記録の作成
-    static async createHealthRecord(req: Request, res: Response) {
+    // ボディーレコードの作成
+    static async createBodyRecord(req: Request, res: Response) {
         const { date, weight, bodyFatPercentage } = req.body;
-        const healthRecordRepository = AppDataSource.getRepository(HealthRecord);
+        const healthRecordRepository = AppDataSource.getRepository(BodyRecord);
       
         try {   
-            const record = new HealthRecord();
+            const record = new BodyRecord();
             record.user = req.user;
             record.date = new Date(date);
             record.weight = weight;

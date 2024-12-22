@@ -4,7 +4,7 @@ import { AppDataSource } from "./data-source";
 import { User } from "@/entity/User";
 import { DiaryController } from "@/controllers/DiaryController";
 import { authMiddleware } from '@/middleware/authMiddleware';
-import { HealthRecordController } from '@/controllers/HealthRecordController';
+import { BodyRecordController } from '@/controllers/BodyRecordController';
 import { ExerciseRecordController } from '@/controllers/ExerciseRecordController';
 
 declare module 'express-serve-static-core' {
@@ -51,8 +51,8 @@ app.get('/api/diaries', authMiddleware, DiaryController.getDiaries);
 app.put('/api/diaries/:id', authMiddleware, DiaryController.updateDiary);
 app.delete('/api/diaries/:id', authMiddleware, DiaryController.deleteDiary);
 
-app.get('/api/health-records', authMiddleware, HealthRecordController.getHealthRecords);
-app.post('/api/health-records', authMiddleware, HealthRecordController.createHealthRecord);
+app.get('/api/body-records', authMiddleware, BodyRecordController.getBodyRecords);
+app.post('/api/body-records', authMiddleware, BodyRecordController.createBodyRecord);
 
 app.get('/api/exercise-records', authMiddleware, ExerciseRecordController.getExerciseRecords);
 app.post('/api/exercise-records', authMiddleware, ExerciseRecordController.createExerciseRecord);
