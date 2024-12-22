@@ -4,6 +4,7 @@ import { AppDataSource } from "./data-source";
 import { User } from "@/entity/User";
 import { DiaryController } from "@/controllers/DiaryController";
 import { authMiddleware } from './middleware/authMiddleware';
+import { HealthRecordController } from './controllers/HealthRecordController';
 
 declare module 'express-serve-static-core' {
     interface Request {
@@ -48,6 +49,9 @@ app.get('/api/diaries/:id', authMiddleware, DiaryController.getDiary);
 app.get('/api/diaries', authMiddleware, DiaryController.getDiaries);
 app.put('/api/diaries/:id', authMiddleware, DiaryController.updateDiary);
 app.delete('/api/diaries/:id', authMiddleware, DiaryController.deleteDiary);
+
+app.get('/api/health-records', authMiddleware, HealthRecordController.getHealthRecords);
+app.post('/api/health-records', authMiddleware, HealthRecordController.createHealthRecord);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
