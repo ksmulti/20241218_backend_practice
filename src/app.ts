@@ -42,25 +42,21 @@ const app: express.Express = express();
 const port = 3000;
 app.use(express.json());
 
-app.get('/', (_req, res) => {
-    res.send('Hello World!');
-});
-
-app.post('/api/diaries', authMiddleware, DiaryController.createDiary);
-app.get('/api/diaries/:id', authMiddleware, DiaryController.getDiary);
-app.get('/api/diaries', authMiddleware, DiaryController.getDiaries);
-app.put('/api/diaries/:id', authMiddleware, DiaryController.updateDiary);
-app.delete('/api/diaries/:id', authMiddleware, DiaryController.deleteDiary);
-
-app.get('/api/body-records', authMiddleware, BodyRecordController.getBodyRecords);
-app.post('/api/body-records', authMiddleware, BodyRecordController.createBodyRecord);
-
 app.get('/api/exercise-records', authMiddleware, ExerciseRecordController.getExerciseRecords);
 app.post('/api/exercise-records', authMiddleware, ExerciseRecordController.createExerciseRecord);
 
 app.post('/api/exercise-goals', authMiddleware, ExerciseGoalController.createGoal);
 
 app.get('/api/exercise-completion', authMiddleware, ExerciseGoalController.getCompletionRates);
+
+app.get('/api/body-records', authMiddleware, BodyRecordController.getBodyRecords);
+app.post('/api/body-records', authMiddleware, BodyRecordController.createBodyRecord);
+
+app.post('/api/diaries', authMiddleware, DiaryController.createDiary);
+app.get('/api/diaries/:id', authMiddleware, DiaryController.getDiary);
+app.get('/api/diaries', authMiddleware, DiaryController.getDiaries);
+app.put('/api/diaries/:id', authMiddleware, DiaryController.updateDiary);
+app.delete('/api/diaries/:id', authMiddleware, DiaryController.deleteDiary);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
